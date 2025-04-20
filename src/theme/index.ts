@@ -28,6 +28,7 @@ export const EMOTION_COLORS = [
   { label: Emotion.Troubled, color: '#F0F4C3' }
 ];
 
-export const getColorByEmotion = (emotion: string) => {
+export const getColorByEmotion = (emotion: string | null | undefined) => {
+  if (!emotion) return '#1976d2'; // Default color if no emotion is provided
   return EMOTION_COLORS.find((e) => e.label.toLowerCase() === emotion.toLowerCase())?.color;
 };

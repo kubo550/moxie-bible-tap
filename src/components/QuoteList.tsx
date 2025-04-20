@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, Typography, Box, Button } from '@mui/material';
-import { DB, VerseQuote } from '@/infrastructure/firebase';
+import { Link, useParams } from 'react-router-dom';
 import { getColorByEmotion } from '@/theme';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Emotion } from '@/types';
-import { isValidEmotion } from '@/utils';
+import { VerseQuote } from '@/types';
 
 interface QuoteCardProps {
-  caption: string;
-  quote: string;
-  type: string;
-  emotion: string; // TODO: get emotion from url
+  quoteCardProps: VerseQuote;
 }
-export const QuoteCard = ({ caption, quote, type, emotion }: QuoteCardProps) => {
+export const QuoteCard = ({ quoteCardProps }: QuoteCardProps) => {
+  const { caption, quote, type } = quoteCardProps;
+  const { emotion } = useParams();
+
   const borderColor = getColorByEmotion(emotion) || '#1976d2';
 
   return (
@@ -25,40 +23,28 @@ export const QuoteCard = ({ caption, quote, type, emotion }: QuoteCardProps) => 
         borderLeft: `6px solid ${borderColor}`
       }}
     >
-      <CardContent>
-        <Typography variant="overline" color="text.secondary">
-          {type.toUpperCase()}
-        </Typography>
-        <Typography variant="h6" gutterBottom fontWeight="bold">
-          {caption}
-        </Typography>
-        <Typography variant="body1" color="text.primary">
-          {quote}
-        </Typography>
-      </CardContent>
+      <Link to={`/emotion/${emotion}/${quoteCardProps.id}`.toLowerCase()}>
+        <CardContent>
+          <Typography variant="overline" color="text.secondary">
+            {type.toUpperCase()}
+          </Typography>
+          <Typography variant="h6" gutterBottom fontWeight="bold">
+            {caption}
+          </Typography>
+          <Typography variant="body1" color="text.primary">
+            {quote}
+          </Typography>
+        </CardContent>
+      </Link>
     </Card>
   );
 };
 
-export const QuoteList = () => {
-  const [quotes, setQuotes] = React.useState<VerseQuote[]>([]);
-  const db = DB.getInstance();
-  const { emotion = Emotion.Thankful } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (emotion && !isValidEmotion(emotion)) {
-      navigate('/');
-    }
-  }, [emotion, navigate]);
-
-  // TODO: use react-query
-  React.useEffect(() => {
-    db.getVerses().then((data: VerseQuote[]) => {
-      setQuotes(data);
-    });
-  }, [db]);
-
+interface QuoteListProps {
+  quotes: VerseQuote[];
+  emotion: string;
+}
+export const QuoteList = ({ quotes, emotion }: QuoteListProps) => {
   return (
     <>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
@@ -87,7 +73,7 @@ export const QuoteList = () => {
         )}
 
         {quotes.map((q) => (
-          <QuoteCard key={q.id} emotion={emotion} caption={q.caption} quote={q.quote} type={q.type} />
+          <QuoteCard key={q.id} quoteCardProps={q} />
         ))}
       </Box>
     </>

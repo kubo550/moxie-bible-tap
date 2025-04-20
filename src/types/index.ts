@@ -1,3 +1,10 @@
+export type VerseQuote = {
+  id: string;
+  caption: string;
+  quote: string;
+  type: string;
+  emotion?: Emotion;
+};
 export enum Emotion {
   Happy = 'Happy',
   Lonely = 'Lonely',
