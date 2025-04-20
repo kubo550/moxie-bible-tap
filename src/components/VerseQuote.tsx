@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Paper } from '@mui/material';
-import { motion } from 'framer-motion';
 import { VerseQuote } from '@/types';
 import { getColorByEmotion } from '@/theme';
 import { useParams } from 'react-router-dom';
@@ -20,12 +19,7 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({ verseQuote }) =
       }}
       className="flex h-screen w-screen items-center justify-center p-4"
     >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="w-full max-w-sm"
-      >
+      <div className="w-full max-w-sm">
         <Paper
           elevation={8}
           className="rounded-2xl bg-black/50 p-6 backdrop-blur-lg"
@@ -47,7 +41,7 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({ verseQuote }) =
             </Typography>
           )}
         </Paper>
-      </motion.div>
+      </div>
     </div>
   );
 };
