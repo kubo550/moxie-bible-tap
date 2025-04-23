@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Grid } from '@mui/material';
 
-import React from 'react';
 import { EMOTION_COLORS } from '@/theme';
 
 export const ReadMeButtons = () => {

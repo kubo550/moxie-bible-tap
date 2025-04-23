@@ -1,14 +1,24 @@
 import React from 'react';
-import { Typography, Paper } from '@mui/material';
+import { Typography, Paper, Button } from '@mui/material';
 import { VerseQuote } from '@/types';
 import { getColorByEmotion } from '@/theme';
 import { useParams } from 'react-router-dom';
 
 type VerseQuoteProps = {
   verseQuote: VerseQuote;
+  count: number;
+  index: number;
+  onNextVerse: () => void;
+  onPrevVerse: () => void;
 };
 
-export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({ verseQuote }) => {
+export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
+  verseQuote,
+  count,
+  index,
+  onNextVerse,
+  onPrevVerse
+}) => {
   const { emotion } = useParams();
   const color = getColorByEmotion(emotion);
 
@@ -17,7 +27,7 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({ verseQuote }) =
       style={{
         backgroundImage: `linear-gradient(to bottom, ${color}, black, black)`
       }}
-      className="flex h-screen w-screen items-center justify-center p-4"
+      className="flex h-screen w-screen flex-col items-center justify-center space-y-6 p-4"
     >
       <div className="w-full max-w-sm">
         <Paper
@@ -41,6 +51,20 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({ verseQuote }) =
             </Typography>
           )}
         </Paper>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        <Button variant="contained" onClick={onPrevVerse} disabled={index === 0}>
+          Prev
+        </Button>
+
+        <Typography className="text-gray-300">
+          {index + 1} / {count}
+        </Typography>
+
+        <Button variant="contained" onClick={onNextVerse} disabled={index + 1 >= count}>
+          Next
+        </Button>
       </div>
     </div>
   );
