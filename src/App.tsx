@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 
-import { Router } from './router';
+import { Router } from './router/router';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { getColorByEmotion } from '@/theme';
@@ -63,12 +62,6 @@ export const QuoteList = ({ quotes, emotion }: QuoteListProps) => {
         ) : (
           <Typography variant="h5" fontWeight="bold" textTransform="capitalize" gutterBottom>
             Bible Verses For {emotion} emotion
-          </Typography>
-        )}
-
-        {quotes.length === 0 && (
-          <Typography variant="body1" color="text.secondary">
-            No quotes available.
           </Typography>
         )}
 
