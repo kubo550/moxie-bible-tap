@@ -14,18 +14,21 @@ export const theme = createTheme({
     error: {
       main: red.A700
     }
+  },
+  typography: {
+    fontFamily: '"Quicksand", sans-serif'
   }
 });
 
 export const EMOTION_COLORS = [
-  { label: Emotion.Happy, color: '#FFC107' },
+  { label: Emotion.Happy, color: '#4CAF50' },
+  { label: Emotion.Thankful, color: '#E91E63' },
   { label: Emotion.Lonely, color: '#81D4FA' },
   { label: Emotion.Angry, color: '#F44336' },
-  { label: Emotion.Sad, color: '#3F51B5' },
-  { label: Emotion.Thankful, color: '#E91E63' },
-  { label: Emotion.Anxious, color: '#4CAF50' },
-  { label: Emotion.Frustrated, color: '#FFB300' },
-  { label: Emotion.Troubled, color: '#F0F4C3' }
+  { label: Emotion.Sad, color: '#03A9F4' },
+  { label: Emotion.Troubled, color: '#FF9800' },
+  { label: Emotion.Anxious, color: '#673AB7' },
+  { label: Emotion.Frustrated, color: '#FFEB3B' }
 ];
 
 export const getColorByEmotion = (emotion: string | null | undefined) => {
