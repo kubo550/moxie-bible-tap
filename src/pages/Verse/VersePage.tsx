@@ -8,6 +8,7 @@ export const VersePage: React.FC = () => {
   const [verses, setVerses] = useState<VerseQuote[]>([]);
   const { verseId = '1', emotion } = useParams();
   const navigate = useNavigate();
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
   useEffect(() => {
     const db = QuoteDBProvider.getInstance();
@@ -30,12 +31,14 @@ export const VersePage: React.FC = () => {
 
   const onNextVerse = useCallback(() => {
     if (verses.length === 0) return;
+    setDirection('next');
     const nextIndex = (currentIndex + 1) % verses.length;
     navigate(getUrl(nextIndex), { replace: true });
   }, [verses, currentIndex, navigate, getUrl]);
 
   const onPrevVerse = useCallback(() => {
     if (verses.length === 0) return;
+    setDirection('prev');
     const prevIndex = (currentIndex - 1 + verses.length) % verses.length;
     navigate(getUrl(prevIndex), { replace: true });
   }, [verses, currentIndex, navigate, getUrl]);
@@ -51,6 +54,7 @@ export const VersePage: React.FC = () => {
           onPrevVerse={onPrevVerse}
           count={verses.length}
           index={currentIndex}
+          direction={direction}
         />
       )}
     </main>

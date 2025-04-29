@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type VerseQuoteProps = {
   verseQuote: VerseQuote;
@@ -13,6 +14,7 @@ type VerseQuoteProps = {
   index: number;
   onNextVerse: () => void;
   onPrevVerse: () => void;
+  direction: 'next' | 'prev';
 };
 
 export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
@@ -20,7 +22,8 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
   count,
   index,
   onNextVerse,
-  onPrevVerse
+  onPrevVerse,
+  direction
 }) => {
   const { emotion } = useParams();
   const color = getColorByEmotion(emotion);
@@ -104,12 +107,42 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
         </Button>
       </Link>
 
-      <Fade in={true} timeout={800}>
-        <Box
-          sx={{
+      <AnimatePresence mode="wait" custom={direction}>
+        <motion.div
+          key={index}
+          custom={direction}
+          variants={{
+            enter: (dir: string) => ({
+              x: dir === 'next' ? 300 : -300,
+              y: -50,
+              rotate: dir === 'next' ? 20 : -20,
+              opacity: 0
+            }),
+            center: {
+              x: 0,
+              y: 0,
+              rotate: 0,
+              opacity: 1
+            },
+            exit: (dir: string) => ({
+              x: dir === 'next' ? -300 : 300,
+              y: 50,
+              rotate: dir === 'next' ? -20 : 20,
+              opacity: 0
+            })
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            duration: 0.5,
+            ease: 'easeInOut'
+          }}
+          style={{
             width: '100%',
             maxWidth: '600px',
-            padding: { xs: 2, md: 4 }
+            padding: '16px',
+            perspective: 1000 // dla efektu 3D, opcjonalnie
           }}
         >
           <Paper
@@ -128,6 +161,7 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
               }
             }}
           >
+            {/* Twoje typografie */}
             <Typography
               variant="overline"
               display="block"
@@ -174,8 +208,8 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
               </Typography>
             )}
           </Paper>
-        </Box>
-      </Fade>
+        </motion.div>
+      </AnimatePresence>
 
       <Box
         sx={{
