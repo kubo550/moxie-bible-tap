@@ -17,7 +17,7 @@ export const EmotionQuote: FunctionComponent = () => {
     }
   }, [emotion, navigate]);
 
-  // TODO: use react-query
+  // *TODO: use react-query
   React.useEffect(() => {
     db.fetchVerses().then((data: VerseQuote[]) => {
       setQuotes(data);
@@ -25,7 +25,7 @@ export const EmotionQuote: FunctionComponent = () => {
   }, [db]);
 
   return (
-    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 bg-slate-900 text-white">
+    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 text-black">
       <QuoteList quotes={quotes} emotion={emotion} />
     </main>
   );
