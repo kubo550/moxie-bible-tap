@@ -112,7 +112,7 @@ export const QuoteList = ({ quotes, emotion }: QuoteListProps) => {
             Loading quotes...
           </Typography>
         ) : (
-          <Typography variant="h5" fontWeight="bold" textTransform="capitalize" gutterBottom>
+          <Typography variant="h5" fontWeight="bold" textTransform="capitalize" gutterBottom color="white">
             Bible Verses For {emotion} emotion
           </Typography>
         )}

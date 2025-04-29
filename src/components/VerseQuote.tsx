@@ -100,7 +100,8 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
             padding: '8px 16px',
             '&:hover': {
               backgroundColor: 'rgba(255,255,255,0.1)'
-            }
+            },
+            marginBottom: '30px'
           }}
         >
           Back to verses
