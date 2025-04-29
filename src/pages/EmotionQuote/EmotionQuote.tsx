@@ -4,7 +4,6 @@ import { Emotion, VerseQuote } from '@/types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { isValidEmotion } from '@/utils';
 import { QuoteDBProvider } from '@/infrastructure/firebase/QuotesDbRepository';
-import Navbar from '@/components/Navbar';
 
 export const EmotionQuote: FunctionComponent = () => {
   const [quotes, setQuotes] = React.useState<VerseQuote[]>([]);
@@ -26,7 +25,7 @@ export const EmotionQuote: FunctionComponent = () => {
   }, [db]);
 
   return (
-    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 bg-slate-50 text-black">
+    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 text-black">
       <QuoteList quotes={quotes} emotion={emotion} />
     </main>
   );

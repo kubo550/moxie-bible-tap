@@ -11,7 +11,8 @@ export const ReadMeButtons = () => {
           p: 4,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
+          color: 'black'
         }}
       >
         <Typography variant="h5" margin="10px" gutterBottom>

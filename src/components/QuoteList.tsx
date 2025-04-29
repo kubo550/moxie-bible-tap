@@ -2,6 +2,7 @@ import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { getColorByEmotion } from '@/theme';
 import { VerseQuote } from '@/types';
+import React from 'react';
 
 interface QuoteCardProps {
   quoteCardProps: VerseQuote;
@@ -54,13 +55,57 @@ interface QuoteListProps {
 }
 
 export const QuoteList = ({ quotes, emotion }: QuoteListProps) => {
+  const color = getColorByEmotion(emotion);
   return (
     <Box
       sx={{
-        pt: { xs: 8, sm: 10 }, // Padding top, większy na mniejszych ekranach
+        pt: { xs: 8, sm: 10 },
         width: '100%'
       }}
     >
+      <Box
+        sx={{
+          animation: 'slide 3s ease-in-out infinite alternate',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -3,
+          '@keyframes slide': {
+            '0%': { transform: 'translateX(-25%)' },
+            '100%': { transform: 'translateX(25%)' }
+          }
+        }}
+      />
+      <Box
+        sx={{
+          animation: 'slide 4s ease-in-out infinite alternate-reverse',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -2
+        }}
+      />
+      <Box
+        sx={{
+          animation: 'slide 5s ease-in-out infinite alternate',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -1
+        }}
+      />
       <Box display="flex" flexDirection="column" alignItems="center" mt={4} px={2}>
         {quotes.length === 0 ? (
           <Typography variant="h6" color="text.secondary">

@@ -28,54 +28,81 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
   return (
     <Box
       sx={{
-        backgroundImage: `linear-gradient(135deg, #ffffff, ${color}33, ${color}99, #ffffff)`,
-        backgroundSize: '300% 300%',
-        animation: 'gradientBackground 20s ease-in-out infinite',
-        minHeight: '100vh',
+        position: 'relative',
+        height: '100vh',
         width: '100vw',
+        overflow: 'hidden',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem',
-        position: 'relative',
-        backdropFilter: 'blur(4px)',
-        '@keyframes gradientBackground': {
-          '0%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' }
-        }
+        flexDirection: 'column',
+        textAlign: 'center'
       }}
     >
       <Box
         sx={{
-          position: 'absolute',
-          top: 150,
-          textAlign: 'center',
-          zIndex: 10
+          animation: 'slide 3s ease-in-out infinite alternate',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -3,
+          '@keyframes slide': {
+            '0%': { transform: 'translateX(-25%)' },
+            '100%': { transform: 'translateX(25%)' }
+          }
         }}
-      >
-        <Link to={`/emotion/${emotion}`} style={{ textDecoration: 'none' }}>
-          <Button
-            variant="text"
-            color="inherit"
-            startIcon={<ArrowBackIcon />}
-            sx={{
-              color: 'white',
-              fontWeight: 'bold',
-              backgroundColor: 'rgba(0,0,0,0.3)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: 2,
-              padding: '8px 16px',
-              '&:hover': {
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }
-            }}
-          >
-            Back to verses
-          </Button>
-        </Link>
-      </Box>
+      />
+      <Box
+        sx={{
+          animation: 'slide 4s ease-in-out infinite alternate-reverse',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -2
+        }}
+      />
+      <Box
+        sx={{
+          animation: 'slide 5s ease-in-out infinite alternate',
+          backgroundImage: `linear-gradient(-60deg, ${color}77 50%, ${color}99 40%)`,
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: '-50%',
+          right: '-50%',
+          opacity: 0.5,
+          zIndex: -1
+        }}
+      />
+
+      <Link to={`/emotion/${emotion}`} style={{ textDecoration: 'none' }}>
+        <Button
+          variant="text"
+          color="inherit"
+          startIcon={<ArrowBackIcon />}
+          sx={{
+            color: 'white',
+            fontWeight: 'bold',
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: 2,
+            padding: '8px 16px',
+            '&:hover': {
+              backgroundColor: 'rgba(255,255,255,0.1)'
+            }
+          }}
+        >
+          Back to verses
+        </Button>
+      </Link>
 
       <Fade in={true} timeout={800}>
         <Box
