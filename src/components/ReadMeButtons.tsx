@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Grid } from '@mui/material';
 
 import { EMOTION_COLORS } from '@/theme';
-import Navbar from '@/components/Navbar';
 
 export const ReadMeButtons = () => {
   return (
@@ -33,13 +32,13 @@ export const ReadMeButtons = () => {
                   variant="contained"
                   sx={{
                     backgroundColor: emotion.color,
-                    color: '#000',
+                    color: '#ffffff',
                     fontWeight: 'bold',
                     '&:hover': {
-                      backgroundColor: emotion.color, // Zmiana koloru tła na hover
+                      backgroundColor: emotion.color,
                       opacity: 0.9,
-                      transform: 'translateY(-4px) scale(1.1)', // Dodanie efektu przesunięcia i powiększenia
-                      transition: 'all 0.3s ease-in-out' // Płynna animacja
+                      transform: 'translateY(-4px) scale(1.1)',
+                      transition: 'all 0.3s ease-in-out'
                     }
                   }}
                 >

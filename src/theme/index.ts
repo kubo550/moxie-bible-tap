@@ -28,7 +28,7 @@ export const EMOTION_COLORS = [
   { label: Emotion.Sad, color: '#03A9F4' },
   { label: Emotion.Troubled, color: '#FF9800' },
   { label: Emotion.Anxious, color: '#673AB7' },
-  { label: Emotion.Frustrated, color: '#FFEB3B' }
+  { label: Emotion.Frustrated, color: '#eed520' }
 ];
 
 export const getColorByEmotion = (emotion: string | null | undefined) => {

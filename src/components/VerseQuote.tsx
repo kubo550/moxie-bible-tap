@@ -28,17 +28,18 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
   return (
     <Box
       sx={{
-        backgroundImage: `linear-gradient(135deg, ${color}33, #000000, #000000)`,
-        backgroundSize: '400% 400%',
-        animation: 'gradientBackground 15s ease infinite',
+        backgroundImage: `linear-gradient(135deg, #ffffff, ${color}33, ${color}99, #ffffff)`,
+        backgroundSize: '300% 300%',
+        animation: 'gradientBackground 20s ease-in-out infinite',
         minHeight: '100vh',
         width: '100vw',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 3,
+        padding: '2rem',
         position: 'relative',
+        backdropFilter: 'blur(4px)',
         '@keyframes gradientBackground': {
           '0%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
@@ -49,8 +50,8 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
       <Box
         sx={{
           position: 'absolute',
-          top: 16,
-          left: 16,
+          top: 150,
+          textAlign: 'center',
           zIndex: 10
         }}
       >
@@ -129,7 +130,7 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
                 wordSpacing: 2
               }}
             >
-              "{verseQuote.quote}"
+              {verseQuote.quote}
             </Typography>
 
             {verseQuote.caption && (
@@ -187,7 +188,6 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
         >
           {index + 1} / {count}
         </Typography>
-
         <IconButton
           onClick={onNextVerse}
           disabled={index + 1 >= count}

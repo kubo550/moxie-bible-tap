@@ -27,7 +27,6 @@ export const EmotionQuote: FunctionComponent = () => {
 
   return (
     <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 bg-slate-50 text-black">
-      <Navbar />
       <QuoteList quotes={quotes} emotion={emotion} />
     </main>
   );

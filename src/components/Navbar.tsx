@@ -6,11 +6,8 @@ function Navbar() {
   return (
     <AppBar
       position="fixed"
-      sx={{
-        top: 0,
-        zIndex: (theme) => theme.zIndex.drawer + 1
-      }}
-      style={{ background: '#000000' }}
+      sx={{ top: 0, zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      style={{ background: '#000000', opacity: '0.7' }}
     >
       <Toolbar>
         <Box
@@ -22,12 +19,12 @@ function Navbar() {
         >
           <Box component="img" src={logo} alt="Logo" sx={{ height: 50 }} />
         </Box>
-        <Box sx={{ flexGrow: 1 }} />
-        <Button color="inherit" component={Link} to="/">
+
+        <Button color="inherit" component={Link} to="/" sx={{ ml: 2 }}>
           Home
         </Button>
-        <Button color="inherit">About</Button>
-        <Button color="inherit">Contact</Button>
+
+        <Box sx={{ flexGrow: 1 }} />
       </Toolbar>
     </AppBar>
   );
