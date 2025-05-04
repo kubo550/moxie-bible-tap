@@ -19,3 +19,5 @@
 - Create a new **feature branch** from `develop` for each new feature or fix.
 - Once your work is ready, open a **pull request** from your feature branch to `develop`.
 - The `main` branch is connected to Continuous Deployment (CD) – pushing to `main` will automatically deploy the app to Netlify.
+
+[Live preview](https://startling-belekoy-9774b8.netlify.app/)
