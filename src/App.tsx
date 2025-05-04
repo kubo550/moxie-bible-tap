@@ -9,6 +9,7 @@ import { Router } from './router/router';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import Navbar from '@/components/Navbar';
+import { InstallPWAButton } from '@/components/InstallPWAButton';
 
 const App: FunctionComponent = () => {
   return (
@@ -17,6 +18,7 @@ const App: FunctionComponent = () => {
         <CssBaseline />
         <AuthProvider>
           <Navbar />
+          <InstallPWAButton />
           <Router />
         </AuthProvider>
       </ThemeProvider>
