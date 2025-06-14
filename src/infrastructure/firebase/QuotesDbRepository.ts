@@ -57,11 +57,6 @@ export class QuoteDBProvider {
 
   async #fetchVerses() {
     const querySnapshot = await getDocs(collection(firestore, this.QUOTES_COLLECTION_NAME));
-    return querySnapshot.docs
-      .filter((doc) => {
-        const data = doc.data() as VerseQuote;
-        return data.type === 'devotional';
-      })
-      .map((doc) => doc.data() as VerseQuote);
+    return querySnapshot.docs.map((doc) => doc.data() as VerseQuote);
   }
 }
