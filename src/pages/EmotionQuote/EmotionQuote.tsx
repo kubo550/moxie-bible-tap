@@ -17,12 +17,12 @@ export const EmotionQuote: FunctionComponent = () => {
     }
   }, [emotion, navigate]);
 
-  // *TODO: use react-query
   React.useEffect(() => {
     db.fetchVerses().then((data: VerseQuote[]) => {
-      setQuotes(data);
+      const filtered = data.filter((quote) => quote.type === emotion);
+      setQuotes(filtered);
     });
-  }, [db]);
+  }, [db, emotion]);
 
   return (
     <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-3 text-black">
