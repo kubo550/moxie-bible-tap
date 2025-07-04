@@ -11,11 +11,13 @@ export const VersePage: React.FC = () => {
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
   useEffect(() => {
+    if (!emotion) return;
+
     const db = QuoteDBProvider.getInstance();
-    db.fetchVerses().then((fetchedVerses) => {
-      setVerses(fetchedVerses);
+    db.fetchVersesByEmotion(emotion).then((filteredVerses) => {
+      setVerses(filteredVerses);
     });
-  }, []);
+  }, [emotion]);
 
   const currentIndex = verses.findIndex((v) => v.id.toLowerCase() === verseId.toLowerCase());
 
