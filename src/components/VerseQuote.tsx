@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Paper, Button, Box, IconButton, Fade } from '@mui/material';
+import { Typography, Paper, Button, Box, IconButton, Fade, useMediaQuery, useTheme } from '@mui/material';
 import { VerseQuote } from '@/types';
 import { getColorByEmotion } from '@/theme';
 import { Link, useParams } from 'react-router-dom';
@@ -28,6 +28,9 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
   const { emotion } = useParams();
   const color = getColorByEmotion(emotion);
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isLongQuote = verseQuote.quote.length > 110;
   return (
     <Box
       sx={{
@@ -178,22 +181,76 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
               {verseQuote.type?.toUpperCase() || 'VERSE'}
             </Typography>
 
-            <Typography
-              variant="h5"
-              sx={{
-                whiteSpace: 'pre-line',
-                textAlign: 'center',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                lineHeight: 1.6,
-                color: 'white',
-                marginBottom: 3,
-                letterSpacing: 0.5,
-                wordSpacing: 2
-              }}
-            >
-              {verseQuote.quote}
-            </Typography>
+            {isSmallScreen && isLongQuote ? (
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: '160px', // widoczny obszar
+                  overflow: 'hidden'
+                }}
+              >
+                <Box
+                  component="div"
+                  sx={{
+                    display: 'inline-block',
+                    whiteSpace: 'pre-line',
+                    animation: 'scrollSequence 15s linear infinite',
+                    animationDelay: '3s',
+                    color: 'white',
+                    fontWeight: 300,
+                    fontSize: '24px',
+                    fontStyle: 'italic',
+                    lineHeight: 1.6,
+                    letterSpacing: 0.5,
+                    wordSpacing: 2
+                  }}
+                >
+                  {verseQuote.quote}
+                </Box>
+
+                <style>
+                  {`
+                    @keyframes scrollSequence {
+                      0% {
+                        transform: translateY(0%);
+                      }
+                      20% {
+                        transform: translateY(-33%);
+                      }
+                      40% {
+                        transform: translateY(-33%);
+                      }
+                      60% {
+                        transform: translateY(0%);
+                      }
+                      80% {
+                        transform: translateY(0%);
+                      }
+                      100% {
+                        transform: translateY(0%);
+                      }
+                    }
+                  `}
+                </style>
+              </Box>
+            ) : (
+              <Typography
+                variant="h5"
+                sx={{
+                  whiteSpace: 'pre-line',
+                  textAlign: 'center',
+                  fontWeight: 300,
+                  fontStyle: 'italic',
+                  lineHeight: 1.6,
+                  color: 'white',
+                  marginBottom: 3,
+                  letterSpacing: 0.5,
+                  wordSpacing: 2
+                }}
+              >
+                {verseQuote.quote}
+              </Typography>
+            )}
 
             {verseQuote.caption && (
               <Typography
