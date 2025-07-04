@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography, Paper, Button, Box, IconButton, Fade, useMediaQuery, useTheme } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import { Typography, Paper, Button, Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { VerseQuote } from '@/types';
 import { getColorByEmotion } from '@/theme';
 import { Link, useParams } from 'react-router-dom';
@@ -27,10 +27,33 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
 }) => {
   const { emotion } = useParams();
   const color = getColorByEmotion(emotion);
+  const quoteRef = useRef<HTMLDivElement>(null);
+  const [scrollAmount, setScrollAmount] = useState(0);
+
+  useEffect(() => {
+    if (!quoteRef.current) return;
+
+    const observer = new ResizeObserver(() => {
+      if (quoteRef.current) {
+        const quoteHeight = quoteRef.current.scrollHeight;
+        const containerHeight = 160;
+        const difference = quoteHeight - containerHeight;
+
+        setScrollAmount(difference > 0 ? difference : 0);
+      }
+    });
+
+    observer.observe(quoteRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [verseQuote.quote]);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isLongQuote = verseQuote.quote.length > 110;
+
   return (
     <Box
       sx={{
@@ -183,6 +206,8 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
 
             {isSmallScreen && isLongQuote ? (
               <Box
+                key={verseQuote.quote}
+                ref={quoteRef}
                 sx={{
                   position: 'relative',
                   height: '160px', // widoczny obszar
@@ -194,8 +219,10 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
                   sx={{
                     display: 'inline-block',
                     whiteSpace: 'pre-line',
-                    animation: 'scrollSequence 15s linear infinite',
-                    animationDelay: '3s',
+                    animation: scrollAmount > 0 ? `scrollSequence 12s linear infinite` : 'none',
+                    animationDelay: '2s',
+                    animationDirection: 'normal',
+                    animationFillMode: 'forwards',
                     color: 'white',
                     fontWeight: 300,
                     fontSize: '24px',
@@ -212,22 +239,19 @@ export const VerseQuoteComponent: React.FC<VerseQuoteProps> = ({
                   {`
                     @keyframes scrollSequence {
                       0% {
-                        transform: translateY(0%);
+                        transform: translateY(0px);
                       }
-                      20% {
-                        transform: translateY(-33%);
-                      }
-                      40% {
-                        transform: translateY(-33%);
+                      50% {
+                        transform: translateY(-${scrollAmount}px);
                       }
                       60% {
-                        transform: translateY(0%);
+                        transform: translateY(-${scrollAmount}px);
                       }
-                      80% {
-                        transform: translateY(0%);
+                      61% {
+                        transform: translateY(0px);
                       }
                       100% {
-                        transform: translateY(0%);
+                        transform: translateY(0px);
                       }
                     }
                   `}
