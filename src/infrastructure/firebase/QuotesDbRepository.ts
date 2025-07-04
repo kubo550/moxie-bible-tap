@@ -59,4 +59,11 @@ export class QuoteDBProvider {
     const querySnapshot = await getDocs(collection(firestore, this.QUOTES_COLLECTION_NAME));
     return querySnapshot.docs.map((doc) => doc.data() as VerseQuote);
   }
+
+  public async fetchVersesByEmotion(emotion: string): Promise<VerseQuote[]> {
+    const verses = await this.fetchVerses();
+    return verses.filter(
+      (verse) => typeof verse.type === 'string' && verse.type.toLowerCase() === emotion.toLowerCase()
+    );
+  }
 }
